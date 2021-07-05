@@ -1,0 +1,43 @@
+/*
+Letakin tictactoe.js dan tictac.js di folder lib
+*/
+
+//Letak di funtction
+const { isTicTacToe, getPosTic } = require("./lib/tictactoe");
+const tictac = require("./lib/tictac");
+
+// Letak di dekat database
+let tictactoe = [];
+
+// Di atas switch command
+// TicTacToe
+if (isTicTacToe(from, tictactoe)) tictac(budy, prefix, tictactoe, from, sender, reply, mentions)
+
+// Letak dalam switch(command)
+case 'tictactoe': case 'ttt': case 'ttc':
+	if (!isGroup)return reply('Hanya bisa di grup')
+	if (isTicTacToe(from, tictactoe)) return reply(`Masih ada game yg blum selesai`)
+	if (args.length < 1) return reply(`Kirim perintah *${prefix}tictactoe* @tag`)
+	if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply(`Kirim perintah *${prefix}tictactoe* @tag`)
+	let mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
+	if (mentioned.length !== 0){
+			if (mentioned[0] === sender) return reply(`Sad amat main ama diri sendiri`)
+			mentions(monospace(`@${sender.split('@')[0]} menantang @${mentioned[0].split('@')[0]} untuk bermain TicTacToe\n\nKirim (Y/T) untuk bermain`), [sender, mentioned[0]], false)
+			tictactoe.push({
+				id: from,
+				hadiah: h,
+				penantang: sender,
+				ditantang: mentioned[0],
+				TicTacToe: ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣']
+			})
+	} else {
+		reply(`Kirim perintah *${prefix}tictactoe* @tag`)
+	}
+	break
+case 'delttt':
+case 'delttc':
+	if (!isGroup)return reply('Hanya bisa di grup')
+	if (!isTicTacToe(from, tictactoe)) return reply(`Tidak ada sesi game tictactoe di grup ini`)
+	tictactoe.splice(getPosTic(from, tictactoe), 1)
+	reply(`Berhasil menghapus sesi tictactoe di grup ini`)
+	break
