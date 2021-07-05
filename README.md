@@ -1,2 +1,3 @@
-# case-tictactoe
-Case Tictactoe By Ardy Store
+## Case By Ardy Store
+Jan Ambil Asu
+## Buat Yang Iri
